@@ -28,19 +28,23 @@ public class Ejocho {
                     Element libroElement= (Element) libro;
                     NodeList propiedadeslibro= libroElement.getChildNodes();
 
-                    Node titulo= propiedadeslibro.item(0);
-                    Node autor= propiedadeslibro.item(1);
-                    Node precio= propiedadeslibro.item(2);
-                    System.out.println(titulo.getNodeName()+": "+titulo.getTextContent());
-                    System.out.println(autor.getNodeName()+": "+autor.getTextContent());
-                    System.out.println(precio.getNodeName()+": "+precio.getTextContent());
-                    contador++;
+                    //Forma 1: ignorar los nodos que no sean ELEMENT_NODE
+                    for (int x=0; x< propiedadeslibro.getLength(); i++){
+                        Node n= propiedadeslibro.item(x);
+                        if(n.getNodeType() == Node.ELEMENT_NODE){
+                            
+                            Element e= (Element)n;
+                            System.out.println(e.getNodeName()+": "+e.getTextContent());
+                        }
 
-                    /*for( int n=0; n<propiedadeslibro.getLength(); n++){
+                    }
 
-                    }*/
-                }
-                
+                    //Forma 2: Sacar cada nodo del libro con la f(x)' GETELEMENTSBYTAGNAME
+                    NodeList tituloLista= libroElement.getElementsByTagName("titulo");
+                    Element titulo= (Element) tituloLista.item(0);
+                    titulo.getNodeName(); titulo.getTextContent();
+                    //...                 
+                }                
             }
             System.out.println("El número total de libros es: "+contador);
         } catch (Exception e) {

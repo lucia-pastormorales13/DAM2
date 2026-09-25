@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<alumnos>
+    <alumno id="1">
+        <nombre>Ana García</nombre>
+        <curso>1DAM</curso>
+        <nota>8.5</nota>
+    </alumno>
+    <alumno id="2">
+        <nombre>Carlos López</nombre>
+        <curso>1DAM</curso>
+        <nota>6.5</nota>
+    </alumno>
+    <alumno id="3">
+        <nombre>María Pérez</nombre>
+        <curso>1DAM</curso>
+        <nota>9.25</nota>
+    </alumno>
+</alumnos>
