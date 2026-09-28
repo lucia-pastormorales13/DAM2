@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<productos>
+    <producto codigo="P001">
+        <nombre>Teclado mecánico</nombre>
+        <precio>59.90</precio>
+        <stock>25</stock>
+    </producto>
+    <producto codigo="P002">
+        <nombre>Ratón inalámbrico</nombre>
+        <precio>24.50</precio>
+        <stock>40</stock>
+    </producto>
+</productos>
