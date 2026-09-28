@@ -1,0 +1,10 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "Acts/lib/commons-beanutils-1.11.0.jar",
+        "Acts/lib/commons-collections4-4.5.0.jar",
+        "Acts/lib/commons-lang3-3.18.0.jar",
+        "Acts/lib/commons-text-1.13.1.jar",
+        "Acts/lib/opencsv-5.12.0.jar"
+    ]
+}

@@ -12,11 +12,11 @@ import java.util.Scanner;
 
 /**
  * ENUNCIADO:
- *   Registra incidencias de un sistema en 'incidencias.txt'. Cada ejecución
- *   debe AÑADIR la nueva incidencia al final SIN borrar las anteriores.
- *   Cada línea lleva su número, por ejemplo:
- *       "Incidencia 4: Disco duro lleno"
- *   El número se calcula AUTOMÁTICAMENTE a partir de las ya existentes.
+ * Registra incidencias de un sistema en 'incidencias.txt'. Cada ejecución
+ * debe AÑADIR la nueva incidencia al final SIN borrar las anteriores.
+ * Cada línea lleva su número, por ejemplo:
+ * "Incidencia 4: Disco duro lleno"
+ * El número se calcula AUTOMÁTICAMENTE a partir de las ya existentes.
  */
 public class Ejtres {
 
@@ -28,10 +28,9 @@ public class Ejtres {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in, StandardCharsets.UTF_8);
-        File fichero = new File(RUTA);       
+        File fichero = new File(RUTA);
         int ultimoNumero = leerUltimoNumero(fichero);
 
-        
         // Comprobamos si el fichero YA termina en salto de línea.
         boolean necesitaSalto = !terminaConSaltoDeLinea(fichero);
 
@@ -42,13 +41,11 @@ public class Ejtres {
         // El número de la nueva incidencia es el anterior + 1.
         int nuevoNumero = ultimoNumero + 1;
 
-        
-        //PASO 2: escribir al FINAL del fichero.
-        
+        // PASO 2: escribir al FINAL del fichero.
+
         try (
                 FileWriter fw = new FileWriter(fichero, true);
-                BufferedWriter escritor = new BufferedWriter(fw)
-        ) {
+                BufferedWriter escritor = new BufferedWriter(fw)) {
 
             // Cerramos la línea anterior si estaba abierta.
             if (necesitaSalto) {
@@ -68,9 +65,8 @@ public class Ejtres {
         System.out.println("Incidencia " + nuevoNumero + " añadida correctamente a " + fichero.getName() + ".");
     }
 
-    
-     // Comprueba si el fichero termina con un salto de línea.
-     
+    // Comprueba si el fichero termina con un salto de línea.
+
     private static boolean terminaConSaltoDeLinea(File fichero) {
 
         if (!fichero.exists() || fichero.length() == 0) {
@@ -88,7 +84,6 @@ public class Ejtres {
         }
     }
 
-    
     private static int leerUltimoNumero(File fichero) {
 
         // Si el fichero todavía no existe no hay nada que leer: empezamos en 0.
@@ -100,8 +95,7 @@ public class Ejtres {
 
         try (
                 FileReader fr = new FileReader(fichero);
-                BufferedReader lector = new BufferedReader(fr)
-        ) {
+                BufferedReader lector = new BufferedReader(fr)) {
 
             String linea;
 
@@ -112,8 +106,7 @@ public class Ejtres {
                     continue;
                 }
 
-                
-                 // Buscamos el primer ':' , que es donde termina el número.
+                // Buscamos el primer ':' , que es donde termina el número.
                 int posColon = linea.indexOf(':');
 
                 if (posColon > PREFIJO.length()) {
