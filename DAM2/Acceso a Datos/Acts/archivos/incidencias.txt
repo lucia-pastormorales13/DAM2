@@ -1,3 +1,0 @@
-Incidencia 1: El servidor no responde
-Incidencia 2: Error al conectar con la base de datos
-Incidencia 3: El servicio web está detenido
