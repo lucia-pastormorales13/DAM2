@@ -1,57 +1,66 @@
 package MYSQL;
-
-import java.util.*;
 import java.sql.*;
 
-public class Ejuno {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        String url = "jdbc:mysql://192.168.3.171:3306/tienda";
-        String user = "lucia";
-        String password = "1311";
+public class Ejuno{
+    public static void main(String[] args){
+        //valores de clase
+        String urlc = "jdbc:mysql://192.168.3.171:3306/tienda";
+        String userc = "lucia";
+        String passwordc = "1311";
 
-        try (
-                Connection con = DriverManager.getConnection(url, user, password);
-                Statement st = con.createStatement();
-                PreparedStatement ps1= con.prepareStatement("SELECT * FROM producto ;");
-                PreparedStatement ps2= con.prepareStatement("SELECT stock FROM producto ;");
+        //valores del portatil
+        String urlp = "jdbc:mysql://192.168.1.144:3306/tienda";
+        String userp = "admin";
+        String passwordp = "1311";
 
-        ) {
-            String insertSQL = "INSERT INTO producto (nombre, precio, stock) VALUES " +
-                    "('Teclado mecánico', 59.90, 15), " +
-                    "('Ratón inalámbrico', 24.50, 30), " +
-                    "('Monitor 24 pulgadas', 149.99, 8), " +
-                    "('Auriculares Bluetooth', 39.95, 20)";
-            int filasInsertadas = st.executeUpdate(insertSQL);
-            System.out.println("¡" + filasInsertadas + " productos han sido insertados correctamente!");
+        String sqlt= "CREATE TABLE IF NOT EXISTS producto (" +
+                "id INT PRIMARY KEY AUTO_INCREMENT," +
+                "nombre VARCHAR(100) NOT NULL," +
+                "precio DECIMAL(10,2) NOT NULL," +
+                "stock INT NOT NULL" +
+                ");";
 
-            String updateSQL = "UPDATE producto " +
-                    "SET precio = CASE WHEN nombre = 'Ratón inalámbrico' THEN 29.90 ELSE precio END, " +
-                    "    stock = CASE WHEN nombre = 'Auriculares Bluetooth' THEN 10 ELSE stock END " +
-                    "WHERE nombre IN ('Ratón inalámbrico', 'Auriculares Bluetooth')";
+        String sqle= "INSERT INTO producto (nombre, precio, stock)\n" + 
+                        "VALUES\n" + 
+                        "('Teclado mecánico', 59.90, 15),\n" + 
+                        "('Ratón inalámbrico', 24.50, 30),\n" + 
+                        "('Monitor 24 pulgadas', 149.99, 8),\n" + 
+                        "('Auriculares Bluetooth', 39.95, 20);";
 
-            int filasActualizadas = st.executeUpdate(updateSQL);
-            System.out.println("¡Productos actualizados correctamente! (Filas afectadas: " + filasActualizadas + ")");
+        String sqls= "UPDATE producto\n" + 
+                        "SET stock = 10\n" + 
+                        "WHERE nombre = 'Auriculares Bluetooth';";
 
-            ResultSet rs= ps1.executeQuery();
+        String sqlv= "SELECT *\n" + //
+                        "FROM producto\n" + //
+                        "WHERE nombre IN ('Ratón inalámbrico', 'Auriculares Bluetooth');";
 
-            System.out.println("\n--- LISTADO DE PRODUCTOS ---");
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String nombre = rs.getString("nombre");
-                double precio = rs.getDouble("precio");
-                int stock = rs.getInt("stock");
-
-                System.out.println(
-                        "ID: " + id + " | Nombre: " + nombre + " | Precio: " + precio + " € | Stock: " + stock);
+        try (Connection con = DriverManager.getConnection(urlp, userp, passwordp);
+            Statement st= con.createStatement();
+            PreparedStatement ps1= con.prepareStatement(sqle);
+            PreparedStatement ps2= con.prepareStatement(sqls);
+            PreparedStatement ps3= con.prepareStatement(sqlv);
+        ){
+            st.executeUpdate(sqlt);
+            System.out.println("Tabla creada correctamente");
+            ps1.executeUpdate();
+            System.out.println("Datos insertados correctamente");
+            ps2.executeUpdate();
+            System.out.println("Datos actualizados correctamente");
+            ResultSet rs= ps3.executeQuery();
+            while(rs.next()){
+                int id= rs.getInt("id");
+                String nombre= rs.getString("nombre");
+                double precio= rs.getDouble("precio");
+                int stock= rs.getInt("stock");
+                System.out.println("ID: " + id + ", Nombre: " + nombre + ", Precio: " + precio + ", Stock: " + stock);
             }
 
 
+        }catch (SQLException e){
+            System.out.println("Error al crear la tabla: " + e.getMessage());
 
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    }
     }
 
 }
